@@ -1,0 +1,32 @@
+name: Hourly Useless Commit
+
+on:
+  schedule:
+    # All January dates + Feb 1
+    - cron: '0 12 5-12,15,18-19,22,25-26,29 1 *'
+    - cron: '0 12 1 2 *'
+jobs:
+  commit:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Make a meaningless change
+        run: |
+          echo "Last updated: $(date)" > useless.txt
+
+      - name: Configure git
+        run: |
+          git config user.name "Jens Schäfer"
+          git config user.email "jens-schaefer@outlook.com"
+
+      - name: Commit and push changes
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          git add useless.txt
+          git commit -m "Useless commit: $(date)"
+          git push
+
