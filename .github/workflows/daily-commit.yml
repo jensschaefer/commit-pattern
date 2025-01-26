@@ -2,10 +2,12 @@ name: Hourly Useless Commit
 
 on:
   schedule:
-    # All January dates + Feb 1
-    - cron: '0 12 5-12,15,18-19,22,25-26,29 1 *'
-    - cron: '0 12 1 2 *'
-jobs:
+    - cron: '0 12 5-12,15,18-19,22,25-26,29 1 *'  # All January dates
+    - cron: '0 12 1,2-9,15-16,22-28 2 *'         # February 1-28 with specified ranges
+    - cron: '0 12 1 3 *'                         # March 1
+
+
+  jobs:
   commit:
     runs-on: ubuntu-latest
 
